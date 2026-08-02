@@ -89,6 +89,28 @@ export default function NotesViewer({ note, onCopyNote }) {
                 <li><strong>Summa Cum Laude</strong>: 3.86/4.00 GPA at Rutgers University in Computer Science &amp; Mathematics.</li>
               </ul>
 
+              <h2>Opensource Contribution and Interests</h2>
+              <p>
+                I am an active contributor to several open-source projects, focusing on areas such as <strong>Autonomous Agents</strong>, and <strong>AI Security</strong>. Here are some of my PRs:
+              </p>
+              <ul>
+                <li>
+                  <a href="https://github.com/prowler-cloud/prowler/pull/11825" target="_blank" rel="noopener noreferrer">
+                    <strong>Prowler Cloud</strong> - Add AWS Amplify App secrets
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/OpenHands/OpenHands/pull/16229" target="_blank" rel="noopener noreferrer">
+                    <strong>OpenHands</strong> - Add support for Pi as ACP agent
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/future-agi/future-agi/pull/1640" target="_blank" rel="noopener noreferrer">
+                    <strong>Future AGI</strong> - Add multi-select and bulk-delete to scenarios table
+                  </a>
+                </li>
+              </ul>
+
               <h2>Quick Links &amp; Navigation</h2>
               <p>
                 Select notes from the sidebar to inspect detailed project architecture, live screenshots, and interactive test generators:

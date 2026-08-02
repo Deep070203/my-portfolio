@@ -17,7 +17,7 @@ export default function App() {
       category: 'Overview',
       icon: '📌',
       date: '',
-      tags: ['bio', 'sde-ups', 'berkeley-mids', 'rutgers-summa-cum-laude'],
+      tags: ['oss-dev', 'sde-ups', 'berkeley-mids', 'rutgers-summa-cum-laude'],
       snippet: 'Software Engineer specializing in Autonomous AI Agents, Options Quant Engines & Microservices.'
     },
     {
@@ -27,7 +27,7 @@ export default function App() {
       category: 'Quant & Finance',
       icon: '📈',
       date: '',
-      tags: ['go', 'gex-vex', 'black-scholes', 'dark-pool', 'screenshots'],
+      tags: ['go', 'gex-vex', 'black-scholes', 'dark-pool', 'options'],
       snippet: 'Real-time NetGEX & NetVEX quantitative analytics engine in Go with dark pool prints & SPY/NVDA screenshots.'
     },
     {
@@ -37,7 +37,7 @@ export default function App() {
       category: 'AI & Agents',
       icon: '🤖',
       date: '',
-      tags: ['typescript', 'vercel-ai-sdk', 'docker', 'issue-to-pr-generator'],
+      tags: ['typescript', 'vercel-ai-sdk', 'oss-agent', 'issue-to-pr-generator'],
       snippet: '13-stage autonomous PR pipeline with surgical tool loop & live Issue-to-PR Generator tool.'
     },
     {
