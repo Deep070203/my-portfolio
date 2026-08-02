@@ -95,19 +95,25 @@ export default function NotesViewer({ note, onCopyNote }) {
               </p>
               <ul>
                 <li>
-                  <a href="https://github.com/prowler-cloud/prowler/pull/11825" target="_blank" rel="noopener noreferrer">
-                    <strong>Prowler Cloud</strong> - Add AWS Amplify App secrets
+                  <a href="https://github.com/prowler-cloud/prowler" target="_blank" rel="noopener noreferrer">
+                    <strong>Prowler Cloud</strong>
                   </a>
+                  - Add AWS Amplify App secrets
+                  <a href="https://github.com/prowler-cloud/prowler/pull/11825" target="_blank" rel="noopener noreferrer">(11825)</a>
                 </li>
                 <li>
-                  <a href="https://github.com/OpenHands/OpenHands/pull/16229" target="_blank" rel="noopener noreferrer">
-                    <strong>OpenHands</strong> - Add support for Pi as ACP agent
+                  <a href="https://github.com/OpenHands/OpenHands" target="_blank" rel="noopener noreferrer">
+                    <strong>OpenHands</strong>
                   </a>
+                  - Add support for Pi as ACP agent
+                  <a href="https://github.com/OpenHands/OpenHands/pull/16229" target="_blank" rel="noopener noreferrer">(16229)</a>
                 </li>
                 <li>
-                  <a href="https://github.com/future-agi/future-agi/pull/1640" target="_blank" rel="noopener noreferrer">
-                    <strong>Future AGI</strong> - Add multi-select and bulk-delete to scenarios table
+                  <a href="https://github.com/future-agi/future-agi" target="_blank" rel="noopener noreferrer">
+                    <strong>Future AGI</strong>
                   </a>
+                  - Add multi-select and bulk-delete to scenarios table
+                  <a href="https://github.com/future-agi/future-agi/pull/1640" target="_blank" rel="noopener noreferrer">(1640)</a>
                 </li>
               </ul>
 
