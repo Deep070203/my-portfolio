@@ -1,11 +1,15 @@
-import React from 'react';
-import { Copy, Share2, Calendar, Tag, FileText, Check, ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { Copy, Share2, Calendar, Tag, FileText, Check, ExternalLink, Terminal, Menu } from 'lucide-react';
 import MagnetoNote from './MagnetoNote';
 import AutoHarnessNote from './AutoHarnessNote';
 import ContactSection from './ContactSection';
+import KalshiBotModal from './KalshiBotModal';
+import { KALSHI_BOTS } from '../data/kalshiBotsData';
 
-export default function NotesViewer({ note, onCopyNote }) {
-  const [copied, setCopied] = React.useState(false);
+export default function NotesViewer({ note, onCopyNote, onToggleSidebar }) {
+  const [copied, setCopied] = useState(false);
+  const [isKalshiModalOpen, setIsKalshiModalOpen] = useState(false);
+  const [selectedKalshiBotId, setSelectedKalshiBotId] = useState('trade_btc_15m_cross_arb');
 
   if (!note) return null;
 
@@ -16,25 +20,35 @@ export default function NotesViewer({ note, onCopyNote }) {
   };
 
   return (
-    <main className="flex-1 h-screen overflow-y-auto bg-[#121214] p-6 sm:p-10 select-text font-sans">
+    <main className="flex-1 h-screen overflow-y-auto bg-[#0D0D0D] p-4 sm:p-8 md:p-10 select-text font-sans w-full">
       <div className="max-w-3xl mx-auto space-y-6">
         
         {/* Note Breadcrumb & Toolbar Header */}
-        <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4">
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-            <span>Notes</span>
+        <div className="flex items-center justify-between border-b border-white/10 pb-4">
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={onToggleSidebar}
+              className="md:hidden p-1.5 rounded-lg bg-[#18181c] border border-white/10 text-zinc-200 hover:text-[#00FF85] hover:border-[#00FF85]/50 transition-all flex items-center gap-1.5 mr-1"
+              title="Toggle Notes Sidebar"
+            >
+              <Menu className="w-4 h-4 text-[#00FF85]" />
+              <span className="font-bold">Notes</span>
+            </button>
+
+            <span className="hidden md:inline">Notes</span>
+            <span className="hidden md:inline">/</span>
+            <span className="text-white font-semibold">{note.category}</span>
             <span>/</span>
-            <span className="text-zinc-300 font-semibold">{note.category}</span>
-            <span>/</span>
-            <span className="text-sky-400">{note.filename}</span>
+            <span className="text-[#00FF85] font-bold">{note.filename}</span>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleCopy}
-              className="p-1.5 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 text-xs font-mono transition-all flex items-center gap-1.5"
+              className="p-1.5 px-3 rounded-lg bg-[#18181c] hover:bg-[#FF0099]/10 border border-white/10 hover:border-[#FF0099]/50 text-zinc-300 hover:text-[#FF0099] text-xs font-mono transition-all flex items-center gap-1.5"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-[#00FF85]" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
           </div>
@@ -129,6 +143,7 @@ export default function NotesViewer({ note, onCopyNote }) {
                 Select notes from the sidebar to inspect detailed project architecture, live screenshots, and interactive test generators:
               </p>
               <ul>
+                <li><code>Kalshi_Arbitrage.md</code> — High-Frequency Rust Event Contract Arbitrage Runner &amp; Live Stream Showcase</li>
                 <li><code>Magneto.ai</code> — Quantitative Options Exposure Engine screenshots &amp; metric cards</li>
                 <li><code>AutoHarness.md</code> — Autonomous Agent &amp; Live Issue-to-PR Generator</li>
                 <li><code>Experience.md</code> — Career timeline at UPS &amp; RWJMS AI Research</li>
@@ -161,16 +176,76 @@ export default function NotesViewer({ note, onCopyNote }) {
 
           {/* Note 5: Kalshi_Arbitrage.md */}
           {note.id === 'kalshi' && (
-            <div className="space-y-4">
+            <div className="space-y-6">
               <blockquote>
-                <strong>Kalshi BTC Event Contract Arbitrage Bot</strong> (July 2026) — High-frequency automated event contract arbitrage runner written in <strong>Rust</strong> for Kalshi Bitcoin hourly markets.
+                <strong>Kalshi BTC Event Contract Arbitrage Bot Engine</strong> — High-frequency automated event contract arbitrage runner written in <strong>Rust</strong>. Listens to real-time order books, computes cross-market spreads, and executes trades with microsecond precision.
               </blockquote>
 
-              <h2>System Highlights</h2>
+              <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-amber-950/40 via-amber-900/20 to-slate-900 border border-amber-500/30">
+                <div className="space-y-1">
+                  <h3 className="text-sm font-bold text-amber-300 flex items-center gap-2">
+                    <span>⚡ Live Interactive Strategy Showcase</span>
+                    <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-950 text-emerald-400 border border-emerald-800">5 Rust Binaries</span>
+                  </h3>
+                  <p className="text-xs text-slate-300">
+                    Inspect source code &amp; watch live public WebSocket market feeds running dry-run executions for all 5 trading bots.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedKalshiBotId('trade_btc_15m_cross_arb');
+                    setIsKalshiModalOpen(true);
+                  }}
+                  className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2 shrink-0"
+                >
+                  <Terminal className="w-4 h-4" />
+                  <span>Run Bot Showcase</span>
+                </button>
+              </div>
+
+              <h2>Algorithms &amp; System Binaries</h2>
+              <div className="grid grid-cols-1 gap-4">
+                {KALSHI_BOTS.map((bot) => (
+                  <div
+                    key={bot.id}
+                    className="p-4 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-amber-500/40 transition-all group cursor-pointer"
+                    onClick={() => {
+                      setSelectedKalshiBotId(bot.id);
+                      setIsKalshiModalOpen(true);
+                    }}
+                  >
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs text-amber-400 font-bold group-hover:text-amber-300">
+                          {bot.fileName}
+                        </span>
+                        <span className={`px-2 py-0.5 text-[10px] font-mono rounded border ${bot.badgeColor}`}>
+                          {bot.badge}
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-cyan-400 hover:underline flex items-center gap-1">
+                        Inspect &amp; Stream →
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-zinc-300 leading-relaxed mb-3">
+                      {bot.summary}
+                    </p>
+
+                    <ul className="text-[11px] font-mono text-zinc-400 space-y-1 pl-3 list-disc border-t border-zinc-800/80 pt-2">
+                      {bot.keyHighlights.map((highlight, idx) => (
+                        <li key={idx}>{highlight}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <h2>System Architecture &amp; Security</h2>
               <ul>
                 <li><strong>Rust &amp; Tokio Runtime</strong>: Built on async Tokio runtime listening to real-time WebSocket order books with sub-millisecond execution.</li>
-                <li><strong>Cross-Market Arbitrage</strong>: Calculates real-time spread imbalances between hourly BTC event contracts and spot feeds.</li>
-                <li><strong>Zero-Drift State Tracking</strong>: Automated trade logging and position tracking for 24/7 continuous cloud execution.</li>
+                <li><strong>Cross-Market Arbitrage</strong>: Calculates real-time spread imbalances between Kalshi and Polymarket BTC event contracts.</li>
+                <li><strong>Safe Public API Integration</strong>: Demonstrates live market data feeds over public read-only WebSocket channels without key exposure.</li>
               </ul>
             </div>
           )}
@@ -180,13 +255,13 @@ export default function NotesViewer({ note, onCopyNote }) {
             <div className="space-y-6">
               <h2>Work Experience</h2>
 
-              <div className="p-4 rounded-lg bg-zinc-900 border border-zinc-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span className="text-sky-400 font-bold text-sm">Software Development Engineer II</span>
+              <div className="p-4 rounded-xl bg-[#141416] border border-white/10 space-y-2 hover:border-[#00FF85]/40 transition-colors">
+                <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-400 gap-2">
+                  <span className="text-[#00FF85] font-bold text-sm">Software Development Engineer II</span>
                   <span>May 2026 – Present</span>
                 </div>
-                <div className="text-xs font-semibold text-zinc-200">United Parcel Service (UPS) • Parsippany, NJ</div>
-                <ul className="text-xs text-zinc-400 space-y-1 pt-1 pl-4 list-disc">
+                <div className="text-xs font-semibold text-white">United Parcel Service (UPS) • Parsippany, NJ</div>
+                <ul className="text-xs text-zinc-300 space-y-1 pt-1 pl-4 list-disc">
                   <li>Design, develop, and maintain 15+ sales hierarchy, customer, and alignment databases supporting enterprise sales planning operations.</li>
                   <li>Support ESP and ESTAT applications used by 150+ Sales Representatives and Customers.</li>
                   <li>Automate monthly ESTAT-to-ESP data transfer process on Linux servers using workflow automation.</li>
@@ -194,13 +269,13 @@ export default function NotesViewer({ note, onCopyNote }) {
                 </ul>
               </div>
 
-              <div className="p-4 rounded-lg bg-zinc-900 border border-zinc-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span className="text-sky-400 font-bold text-sm">Software Development Engineer I</span>
+              <div className="p-4 rounded-xl bg-[#141416] border border-white/10 space-y-2 hover:border-[#1E90FF]/40 transition-colors">
+                <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-400 gap-2">
+                  <span className="text-[#1E90FF] font-bold text-sm">Software Development Engineer I</span>
                   <span>July 2025 – April 2026</span>
                 </div>
-                <div className="text-xs font-semibold text-zinc-200">United Parcel Service (UPS) • Parsippany, NJ</div>
-                <ul className="text-xs text-zinc-400 space-y-1 pt-1 pl-4 list-disc">
+                <div className="text-xs font-semibold text-white">United Parcel Service (UPS) • Parsippany, NJ</div>
+                <ul className="text-xs text-zinc-300 space-y-1 pt-1 pl-4 list-disc">
                   <li>Maintained distributed microservices ecosystem (60+ services) enabling real-time package visibility for 1.5M+ daily customers.</li>
                   <li>Architected high-throughput backend systems using Java, AMQ, IBM MQ, and Couchbase processing billions of requests.</li>
                   <li>Led service migration from on-prem/Jenkins to Azure DevOps Cloud, mentoring 3 engineers.</li>
@@ -209,20 +284,20 @@ export default function NotesViewer({ note, onCopyNote }) {
 
               <h2>Education</h2>
 
-              <div className="p-4 rounded-lg bg-zinc-900 border border-zinc-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span className="text-violet-400 font-bold text-sm">Master of Information and Data Science (MIDS)</span>
+              <div className="p-4 rounded-xl bg-[#141416] border border-white/10 space-y-2 hover:border-[#FF0099]/40 transition-colors">
+                <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-400 gap-2">
+                  <span className="text-[#FF0099] font-bold text-sm">Master of Information and Data Science (MIDS)</span>
                   <span>May 2026 – Dec 2027</span>
                 </div>
-                <div className="text-xs font-semibold text-zinc-200">University of California, Berkeley • Berkeley, CA</div>
+                <div className="text-xs font-semibold text-white">University of California, Berkeley • Berkeley, CA</div>
               </div>
 
-              <div className="p-4 rounded-lg bg-zinc-900 border border-zinc-800 space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
-                  <span className="text-amber-400 font-bold text-sm">B.S. Computer Science &amp; Mathematics (Summa Cum Laude)</span>
+              <div className="p-4 rounded-xl bg-[#141416] border border-white/10 space-y-2 hover:border-[#00FF85]/40 transition-colors">
+                <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-400 gap-2">
+                  <span className="text-[#00FF85] font-bold text-sm">B.S. Computer Science &amp; Mathematics (Summa Cum Laude)</span>
                   <span>Sep 2021 – May 2025</span>
                 </div>
-                <div className="text-xs font-semibold text-zinc-200">Rutgers University - New Brunswick • 3.86 / 4.00 GPA</div>
+                <div className="text-xs font-semibold text-white">Rutgers University - New Brunswick • 3.86 / 4.00 GPA</div>
               </div>
             </div>
           )}
@@ -233,26 +308,26 @@ export default function NotesViewer({ note, onCopyNote }) {
               <h2>Technical Skills Checklist</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-zinc-900 border border-zinc-800 space-y-2">
-                  <h3 className="text-xs font-mono font-bold text-sky-400 uppercase">Languages &amp; Core</h3>
+                <div className="p-4 rounded-xl bg-[#141416] border border-white/10 space-y-2">
+                  <h3 className="text-xs font-mono font-bold text-[#00FF85] uppercase">Languages &amp; Core</h3>
                   <ul className="text-xs text-zinc-300 font-mono space-y-1">
-                    <li>✓ Go (Golang) — Concurrent quantitative engines</li>
-                    <li>✓ TypeScript / JavaScript — React, Node.js, Vercel AI</li>
-                    <li>✓ Python — AI/ML, fine-tuning, data science</li>
-                    <li>✓ Java &amp; C# / .NET — Distributed enterprise services</li>
-                    <li>✓ Rust — High-frequency trading runners</li>
-                    <li>✓ SQL / PL-SQL — Enterprise database queries</li>
+                    <li><span className="text-[#00FF85]">✓</span> Go (Golang) — Concurrent quantitative engines</li>
+                    <li><span className="text-[#00FF85]">✓</span> TypeScript / JavaScript — React, Node.js, Vercel AI</li>
+                    <li><span className="text-[#00FF85]">✓</span> Python — AI/ML, fine-tuning, data science</li>
+                    <li><span className="text-[#00FF85]">✓</span> Java &amp; C# / .NET — Distributed enterprise services</li>
+                    <li><span className="text-[#00FF85]">✓</span> Rust — High-frequency trading runners</li>
+                    <li><span className="text-[#00FF85]">✓</span> SQL / PL-SQL — Enterprise database queries</li>
                   </ul>
                 </div>
 
-                <div className="p-4 rounded-lg bg-zinc-900 border border-zinc-800 space-y-2">
-                  <h3 className="text-xs font-mono font-bold text-violet-400 uppercase">AI, Data &amp; Cloud</h3>
+                <div className="p-4 rounded-xl bg-[#141416] border border-white/10 space-y-2">
+                  <h3 className="text-xs font-mono font-bold text-[#1E90FF] uppercase">AI, Data &amp; Cloud</h3>
                   <ul className="text-xs text-zinc-300 font-mono space-y-1">
-                    <li>✓ Vercel AI SDK &amp; Tool-Calling Loops</li>
-                    <li>✓ Black-Scholes GEX/VEX Quantitative Analytics</li>
-                    <li>✓ Kafka, Spark, Databricks, Postgres, Couchbase</li>
-                    <li>✓ Docker, Azure DevOps, AWS, GCP</li>
-                    <li>✓ IBM MQ, AMQ, Gorilla WebSockets</li>
+                    <li><span className="text-[#1E90FF]">✓</span> Vercel AI SDK &amp; Tool-Calling Loops</li>
+                    <li><span className="text-[#1E90FF]">✓</span> Black-Scholes GEX/VEX Quantitative Analytics</li>
+                    <li><span className="text-[#1E90FF]">✓</span> Kafka, Spark, Databricks, Postgres, Couchbase</li>
+                    <li><span className="text-[#1E90FF]">✓</span> Docker, Azure DevOps, AWS, GCP</li>
+                    <li><span className="text-[#1E90FF]">✓</span> IBM MQ, AMQ, Gorilla WebSockets</li>
                   </ul>
                 </div>
               </div>
@@ -265,6 +340,13 @@ export default function NotesViewer({ note, onCopyNote }) {
         </div>
 
       </div>
+
+      {/* Kalshi Algorithmic Trading Showcase Modal */}
+      <KalshiBotModal
+        isOpen={isKalshiModalOpen}
+        onClose={() => setIsKalshiModalOpen(false)}
+        initialBotId={selectedKalshiBotId}
+      />
     </main>
   );
 }

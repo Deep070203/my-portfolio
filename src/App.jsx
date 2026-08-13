@@ -21,36 +21,6 @@ export default function App() {
       snippet: 'Software Engineer specializing in Autonomous AI Agents, Options Quant Engines & Microservices.'
     },
     {
-      id: 'magneto',
-      filename: 'Magneto.ai.note',
-      title: 'Magneto.ai — Options Exposure Engine',
-      category: 'Quant & Finance',
-      icon: '📈',
-      date: '',
-      tags: ['go', 'gex-vex', 'black-scholes', 'dark-pool', 'options'],
-      snippet: 'Real-time NetGEX & NetVEX quantitative analytics engine in Go with dark pool prints & SPY/NVDA screenshots.'
-    },
-    {
-      id: 'autoharness',
-      filename: 'AutoHarness.md',
-      title: 'AutoHarness — Autonomous GitHub Agent',
-      category: 'AI & Agents',
-      icon: '🤖',
-      date: '',
-      tags: ['typescript', 'vercel-ai-sdk', 'oss-agent', 'issue-to-pr-generator'],
-      snippet: '13-stage autonomous PR pipeline with surgical tool loop & live Issue-to-PR Generator tool.'
-    },
-    {
-      id: 'rwjms',
-      filename: 'RWJMS_Research.md',
-      title: 'RWJMS Research — Healthcare AI Roleplay',
-      category: 'AI Research',
-      icon: '🔬',
-      date: '',
-      tags: ['python', 'llm-fine-tuning', 'bias-detection', 'medical-ai'],
-      snippet: 'Web-based AI roleplay simulation platform for implicit bias detection in clinical decision-making.'
-    },
-    {
       id: 'kalshi',
       filename: 'Kalshi_Arbitrage.md',
       title: 'Kalshi BTC Hourly Arbitrage Bot',
@@ -59,6 +29,16 @@ export default function App() {
       date: '',
       tags: ['rust', 'tokio', 'websockets', 'kalshi', 'hft-bot'],
       snippet: 'High-frequency automated event contract arbitrage runner in Rust for Kalshi BTC hourly markets.'
+    },
+    {
+      id: 'magneto',
+      filename: 'Magneto.ai.note',
+      title: 'Magneto.ai — Options Exposure Engine',
+      category: 'Quant & Finance',
+      icon: '📈',
+      date: '',
+      tags: ['go', 'gex-vex', 'black-scholes', 'dark-pool', 'options'],
+      snippet: 'Real-time NetGEX & NetVEX quantitative analytics engine in Go with dark pool prints & SPY/NVDA screenshots.'
     },
     {
       id: 'experience',
@@ -95,7 +75,7 @@ export default function App() {
   const activeNote = notes.find(n => n.id === activeNoteId) || notes[0];
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#121214] text-zinc-100 selection:bg-sky-500 selection:text-black font-sans">
+    <div className="flex h-screen w-screen overflow-hidden bg-[#0D0D0D] text-white selection:bg-[#FF0099] selection:text-white font-sans relative">
       
       {/* Sidebar Navigation */}
       <Sidebar
@@ -108,12 +88,15 @@ export default function App() {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         onOpenTerminal={() => setIsTerminalOpen(true)}
+        isOpen={isMobileSidebarOpen}
+        onClose={() => setIsMobileSidebarOpen(false)}
       />
 
       {/* Main Notes Viewer */}
       <NotesViewer
         note={activeNote}
         onCopyNote={() => {}}
+        onToggleSidebar={() => setIsMobileSidebarOpen(prev => !prev)}
       />
 
       {/* Interactive Terminal Modal */}

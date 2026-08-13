@@ -137,90 +137,91 @@ export default function InteractiveTerminal({ isOpen, onClose }) {
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-red-500 inline-block cursor-pointer hover:opacity-80" onClick={onClose}></span>
             <span className="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
-            <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
-            <span className="ml-2 font-mono text-xs font-medium text-slate-400 flex items-center gap-1.5">
-              <TerminalIcon className="w-3.5 h-3.5 text-cyan-400" />
-              deepshah@antigravity: ~/portfolio (zsh)
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={copyTerminalHistory}
-              className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-800 rounded transition-all"
-              title="Copy Output"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            </button>
-            <button
-              onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded transition-all"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
+          <span className="w-3 h-3 rounded-full bg-[#FF0099] inline-block"></span>
+          <span className="w-3 h-3 rounded-full bg-[#00FF85] inline-block"></span>
+          <span className="ml-2 font-mono text-xs font-medium text-zinc-400 flex items-center gap-1.5">
+            <TerminalIcon className="w-3.5 h-3.5 text-[#00FF85]" />
+            deepshah@antigravity: ~/portfolio (zsh)
+          </span>
         </div>
 
-        {/* Terminal Body Output Area */}
-        <div
-          className="flex-1 p-4 font-mono text-xs text-slate-200 overflow-y-auto space-y-2 bg-[#080c14]/90"
-          onClick={() => inputRef.current?.focus()}
-        >
-          {history.map((item, i) => (
-            <div key={i} className="leading-relaxed">
-              {item.type === 'command' ? (
-                <div className="flex items-center gap-2 text-cyan-400 font-semibold">
-                  <span className="text-emerald-400">deep@antigravity</span>
-                  <span className="text-slate-500">:</span>
-                  <span className="text-blue-400">~/portfolio</span>
-                  <span className="text-slate-400">$</span>
-                  <span className="text-white">{item.text}</span>
-                </div>
-              ) : (
-                <pre className="text-slate-300 whitespace-pre-wrap font-mono font-normal pl-2 border-l-2 border-slate-800/80 my-1">
-                  {item.text}
-                </pre>
-              )}
-            </div>
-          ))}
-
-          {/* Active Command Prompt */}
-          <div className="flex items-center gap-2 pt-1 text-cyan-400 font-semibold">
-            <span className="text-emerald-400">deep@antigravity</span>
-            <span className="text-slate-500">:</span>
-            <span className="text-blue-400">~/portfolio</span>
-            <span className="text-slate-400">$</span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="flex-1 bg-transparent outline-none text-white font-mono text-xs border-none p-0 focus:ring-0"
-              placeholder="type 'help'..."
-              autoFocus
-            />
-          </div>
-          <div ref={bottomRef} />
+        <div className="flex items-center gap-2">
+          <button
+            onClick={copyTerminalHistory}
+            className="p-1.5 text-zinc-400 hover:text-[#00FF85] hover:bg-white/5 rounded transition-all"
+            title="Copy Output"
+          >
+            {copied ? <Check className="w-3.5 h-3.5 text-[#00FF85]" /> : <Copy className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            onClick={onClose}
+            className="p-1.5 text-zinc-400 hover:text-[#FF0099] hover:bg-[#FF0099]/10 rounded transition-all"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
-
-        {/* Terminal Footer Quick Buttons */}
-        <div className="bg-[#0b1120] px-4 py-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
-          <div className="flex items-center gap-2 overflow-x-auto py-1">
-            <span className="text-slate-500">Quick commands:</span>
-            {['help', 'about', 'magneto', 'autoharness', 'sudo hire'].map((cmd) => (
-              <button
-                key={cmd}
-                onClick={() => handleCommand(cmd)}
-                className="px-2 py-0.5 rounded bg-slate-800/80 hover:bg-cyan-950 hover:text-cyan-300 text-slate-300 border border-slate-700/60 transition-all"
-              >
-                {cmd}
-              </button>
-            ))}
-          </div>
-        </div>
-
       </div>
+
+      {/* Terminal Body Output Area */}
+      <div
+        className="flex-1 p-4 font-mono text-xs text-zinc-200 overflow-y-auto space-y-2 bg-[#09090b]/95"
+        onClick={() => inputRef.current?.focus()}
+      >
+        {history.map((item, i) => (
+          <div key={i} className="leading-relaxed">
+            {item.type === 'command' ? (
+              <div className="flex items-center gap-2 text-[#00FF85] font-semibold flex-wrap">
+                <span className="text-[#00FF85]">deep@antigravity</span>
+                <span className="text-zinc-500">:</span>
+                <span className="text-[#1E90FF]">~/portfolio</span>
+                <span className="text-zinc-400">$</span>
+                <span className="text-white">{item.text}</span>
+              </div>
+            ) : (
+              <pre className="text-zinc-300 whitespace-pre-wrap font-mono font-normal pl-2 border-l-2 border-[#00FF85]/30 my-1">
+                {item.text}
+              </pre>
+            )}
+          </div>
+        ))}
+
+        {/* Active Command Prompt */}
+        <div className="flex items-center gap-2 pt-1 text-[#00FF85] font-semibold flex-wrap">
+          <span className="text-[#00FF85]">deep@antigravity</span>
+          <span className="text-zinc-500">:</span>
+          <span className="text-[#1E90FF]">~/portfolio</span>
+          <span className="text-zinc-400">$</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="flex-1 min-w-[120px] bg-transparent outline-none text-white font-mono text-xs border-none p-0 focus:ring-0"
+            placeholder="type 'help'..."
+            autoFocus
+          />
+        </div>
+        <div ref={bottomRef} />
+      </div>
+
+      {/* Terminal Footer Quick Buttons */}
+      <div className="bg-[#0D0D0D] px-4 py-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+        <div className="flex items-center gap-2 overflow-x-auto py-1">
+          <span className="text-zinc-500 shrink-0">Quick commands:</span>
+          {['help', 'about', 'magneto', 'autoharness', 'sudo hire'].map((cmd) => (
+            <button
+              key={cmd}
+              onClick={() => handleCommand(cmd)}
+              className="px-2 py-0.5 rounded bg-[#18181c] hover:bg-[#FF0099]/10 hover:text-[#FF0099] hover:border-[#FF0099]/40 text-zinc-300 border border-white/10 transition-all shrink-0"
+            >
+              {cmd}
+            </button>
+          ))}
+        </div>
+      </div>
+
     </div>
-  );
+  </div>
+);
 }
