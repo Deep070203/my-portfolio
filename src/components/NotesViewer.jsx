@@ -95,6 +95,13 @@ export default function NotesViewer({ note, onCopyNote }) {
               </p>
               <ul>
                 <li>
+                  <a href="https://github.com/OpenHands/software-agent-sdk" target="_blank" rel="noopener noreferrer">
+                    <strong>OpenHands - Software Agent Sdk</strong>
+                  </a>
+                  - register Pi as buil-in ACP Provider
+                  <a href="https://github.com/OpenHands/software-agent-sdk/pull/4419" target="_blank" rel="noopener noreferrer"><u>(4419)</u></a>
+                </li>
+                <li>
                   <a href="https://github.com/prowler-cloud/prowler" target="_blank" rel="noopener noreferrer">
                     <strong>Prowler Cloud</strong>
                   </a>
