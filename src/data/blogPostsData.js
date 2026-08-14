@@ -1,0 +1,35 @@
+export const BLOG_POSTS = [
+  {
+    id: 'btc-prediction-market-arb',
+    title: 'High-Frequency Prediction Market Arbitrage & Market Making Engine',
+    subtitle: 'A quantitative research breakdown and low-latency architectural design for trading 15-minute and hourly Bitcoin binary options on Kalshi and Polymarket in Rust.',
+    category: 'Quant & Rust HFT',
+    date: 'August 2026',
+    readTime: '12 min read',
+    tags: ['Rust', 'Kalshi', 'Polymarket', 'Arbitrage', 'Tokio', 'HFT'],
+    summary: 'Trading binary contracts expiring every 15 minutes presents unique mathematical and microstructural challenges: digital option delta explosions, non-linear exchange fee schedules, and orderbook imbalance dynamics.',
+    featured: true,
+  },
+  {
+    id: 'magneto-gex-vex-options',
+    title: 'NetGEX & NetVEX Options Market Maker Positioning',
+    subtitle: 'Understanding market maker hedging dynamics, zero-gamma inflection levels, and dark pool print detection in SPY/NVDA.',
+    category: 'Quant Analytics',
+    date: 'Coming Soon',
+    readTime: '8 min read',
+    tags: ['Go', 'Black-Scholes', 'Options GEX', 'Dark Pools'],
+    summary: 'How quantitative engines track dealer gamma & vanna exposure to forecast intraday market support and resistance boundaries.',
+    featured: false,
+  },
+  {
+    id: 'autoharness-llm-testing',
+    title: 'Autonomous Code Generation & Self-Healing AST Test Harnesses',
+    subtitle: 'Architecting sandboxed Docker LLM execution loops with AST call graph parsing and deterministic rollback gates.',
+    category: 'AI & Systems',
+    date: 'Coming Soon',
+    readTime: '10 min read',
+    tags: ['TypeScript', 'Docker', 'LLM Agents', 'AST Parsing'],
+    summary: 'Building self-correcting agent harnesses that source repository issues, run regression test suites, parse stack traces, and submit verified pull requests.',
+    featured: false,
+  }
+];

@@ -1,110 +1,99 @@
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import NotesViewer from './components/NotesViewer';
+import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from './components/ThemeContext';
+import HeaderNavbar from './components/HeaderNavbar';
+import HomeView from './components/HomeView';
+import AboutView from './components/AboutView';
+import ProjectsView from './components/ProjectsView';
+import ResumeView from './components/ResumeView';
+import SkillsView from './components/SkillsView';
+import ContactView from './components/ContactView';
+import BlogView from './components/BlogView';
+import ProjectDetailModal from './components/ProjectDetailModal';
 import InteractiveTerminal from './components/InteractiveTerminal';
+import Footer from './components/Footer';
 
 export default function App() {
-  const [activeNoteId, setActiveNoteId] = useState('readme');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [activeTab, setActiveTab] = useState('home');
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-  const notes = [
-    {
-      id: 'readme',
-      filename: 'README.md',
-      title: 'README.md — Deep Shah Bio',
-      category: 'Overview',
-      icon: '📌',
-      date: '',
-      tags: ['oss-dev', 'sde-ups', 'berkeley-mids', 'rutgers-summa-cum-laude'],
-      snippet: 'Software Engineer specializing in Autonomous AI Agents, Options Quant Engines & Microservices.'
-    },
-    {
-      id: 'kalshi',
-      filename: 'Kalshi_Arbitrage.md',
-      title: 'Kalshi BTC Hourly Arbitrage Bot',
-      category: 'Quant & Finance',
-      icon: '🦀',
-      date: '',
-      tags: ['rust', 'tokio', 'websockets', 'kalshi', 'hft-bot'],
-      snippet: 'High-frequency automated event contract arbitrage runner in Rust for Kalshi BTC hourly markets.'
-    },
-    {
-      id: 'magneto',
-      filename: 'Magneto.ai.note',
-      title: 'Magneto.ai — Options Exposure Engine',
-      category: 'Quant & Finance',
-      icon: '📈',
-      date: '',
-      tags: ['go', 'gex-vex', 'black-scholes', 'dark-pool', 'options'],
-      snippet: 'Real-time NetGEX & NetVEX quantitative analytics engine in Go with dark pool prints & SPY/NVDA screenshots.'
-    },
-    {
-      id: 'experience',
-      filename: 'Experience.md',
-      title: 'Experience.md — Career & Education',
-      category: 'Career',
-      icon: '💼',
-      date: '',
-      tags: ['ups-sde-ii', 'ups-sde-i', 'uc-berkeley', 'rutgers'],
-      snippet: 'Software Development Engineer II @ UPS, UC Berkeley MIDS, and Rutgers Summa Cum Laude B.S.'
-    },
-    {
-      id: 'skills',
-      filename: 'Skills.md',
-      title: 'Skills.md — Technical Matrix',
-      category: 'Skills',
-      icon: '⚡',
-      date: '',
-      tags: ['golang', 'typescript', 'python', 'java', 'docker', 'kafka'],
-      snippet: 'Technical capabilities across high-performance languages, AI agent SDKs, and databases.'
-    },
-    {
-      id: 'contact',
-      filename: 'Contact.md',
-      title: 'Contact.md — Direct Message',
-      category: 'Contact',
-      icon: '✉️',
-      date: '',
-      tags: ['email', 'linkedin', 'github', 'parsippany-nj'],
-      snippet: 'Reach out for roles in Autonomous AI Agents, Quantitative Trading, and High-Throughput Engineering.'
-    }
-  ];
-
-  const activeNote = notes.find(n => n.id === activeNoteId) || notes[0];
+  // Global keybinding: Cmd+K / Ctrl+K to toggle CLI
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsTerminalOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#0D0D0D] text-white selection:bg-[#FF0099] selection:text-white font-sans relative">
-      
-      {/* Sidebar Navigation */}
-      <Sidebar
-        notes={notes}
-        activeNoteId={activeNoteId}
-        onSelectNote={(id) => {
-          setActiveNoteId(id);
-          setIsMobileSidebarOpen(false);
-        }}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onOpenTerminal={() => setIsTerminalOpen(true)}
-        isOpen={isMobileSidebarOpen}
-        onClose={() => setIsMobileSidebarOpen(false)}
-      />
+    <ThemeProvider>
+      <div className="min-h-screen flex flex-col justify-between bg-[var(--bg-page)] text-[var(--text-primary)] transition-colors duration-200">
+        
+        {/* Header Navigation */}
+        <HeaderNavbar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          onOpenTerminal={() => setIsTerminalOpen(true)}
+        />
 
-      {/* Main Notes Viewer */}
-      <NotesViewer
-        note={activeNote}
-        onCopyNote={() => {}}
-        onToggleSidebar={() => setIsMobileSidebarOpen(prev => !prev)}
-      />
+        {/* Main Content Area */}
+        <main className="flex-1 w-full">
+          {activeTab === 'home' && (
+            <HomeView
+              setActiveTab={setActiveTab}
+              onOpenProjectModal={(id) => setSelectedProjectId(id)}
+            />
+          )}
 
-      {/* Interactive Terminal Modal */}
-      <InteractiveTerminal
-        isOpen={isTerminalOpen}
-        onClose={() => setIsTerminalOpen(false)}
-      />
+          {activeTab === 'about' && (
+            <AboutView setActiveTab={setActiveTab} />
+          )}
 
-    </div>
+          {activeTab === 'projects' && (
+            <ProjectsView
+              onOpenProjectModal={(id) => setSelectedProjectId(id)}
+            />
+          )}
+
+          {activeTab === 'resume' && (
+            <ResumeView />
+          )}
+
+          {activeTab === 'skills' && (
+            <SkillsView />
+          )}
+
+          {activeTab === 'contact' && (
+            <ContactView />
+          )}
+
+          {activeTab === 'blog' && (
+            <BlogView setActiveTab={setActiveTab} />
+          )}
+        </main>
+
+        {/* Minimal Footer */}
+        <Footer setActiveTab={setActiveTab} />
+
+        {/* Project Detail Deep-Dive & Sandbox Modal */}
+        {selectedProjectId && (
+          <ProjectDetailModal
+            projectId={selectedProjectId}
+            onClose={() => setSelectedProjectId(null)}
+          />
+        )}
+
+        {/* Interactive CLI Terminal Modal */}
+        <InteractiveTerminal
+          isOpen={isTerminalOpen}
+          onClose={() => setIsTerminalOpen(false)}
+        />
+
+      </div>
+    </ThemeProvider>
   );
 }
