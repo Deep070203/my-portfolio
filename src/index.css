@@ -35,6 +35,24 @@ html.light {
   --highlight-fg: #ffffff;
 }
 
+.dark-blog-theme {
+  --bg-page: #0B0F17;
+  --bg-surface: #111827;
+  --bg-card: #1F2937;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(56, 189, 248, 0.4);
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --accent-cyan: #38BDF8;
+  --accent-blue: #3B82F6;
+  --accent-green: #10B981;
+  --highlight-bg: #0284c7;
+  --highlight-fg: #ffffff;
+  background-color: #0B0F17;
+  color: #F8FAFC;
+}
+
 @layer base {
   body {
     font-family: var(--font-sans);

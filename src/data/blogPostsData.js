@@ -11,6 +11,17 @@ export const BLOG_POSTS = [
     featured: true,
   },
   {
+    id: 'macro-lottery-tail-risk',
+    title: 'Corporate Tail-Risk Transfer & Regulatory Event Derivatives',
+    subtitle: 'Parametric basis risk breakdown, Avellaneda-Stoikov liquidity limits, and empirical case studies (Ford, SWK, Western Grazers) on Kalshi & Polymarket.',
+    category: 'Quantitative Risk & Derivatives',
+    date: 'August 2026',
+    readTime: '14 min read',
+    tags: ['Kalshi', 'Polymarket', 'Parametric Risk', 'Corporate Treasury', 'Microstructure', 'Financial Engineering'],
+    summary: 'Non-financial corporations are structurally short discrete macro, legislative, and regulatory events. This paper presents an empirical framework proving how binary event contracts act as zero-basis-risk parametric risk transfer mechanisms.',
+    featured: true,
+  },
+  {
     id: 'magneto-gex-vex-options',
     title: 'NetGEX & NetVEX Options Market Maker Positioning',
     subtitle: 'Understanding market maker hedging dynamics, zero-gamma inflection levels, and dark pool print detection in SPY/NVDA.',

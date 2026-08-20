@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Clock, ArrowRight, Search } from 'lucide-react';
 import { BLOG_POSTS } from '../data/blogPostsData';
 import BtcPredictionMarketPost from './blogs/BtcPredictionMarketPost';
+import MacroLotteryPost from './blogs/MacroLotteryPost';
 
 export default function BlogView({ setActiveTab }) {
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -16,7 +17,7 @@ export default function BlogView({ setActiveTab }) {
   // VIEW 1: Render Standalone Report Component if selected
   if (selectedPostId === 'btc-prediction-market-arb') {
     return (
-      <div className="py-12">
+      <div className="py-8 dark-blog-theme rounded-2xl px-2 sm:px-6 my-4">
         <BtcPredictionMarketPost
           onBack={() => setSelectedPostId(null)}
           onNavigateToProjects={() => setActiveTab('projects')}
@@ -25,9 +26,23 @@ export default function BlogView({ setActiveTab }) {
     );
   }
 
+  if (selectedPostId === 'macro-lottery-tail-risk') {
+    return (
+      <div className="py-8 dark-blog-theme rounded-2xl px-2 sm:px-6 my-4">
+        <MacroLotteryPost
+          onBack={() => setSelectedPostId(null)}
+          onNavigateToProjects={() => setActiveTab('projects')}
+        />
+      </div>
+    );
+  }
+
+  const isPostSelectable = (id) => ['btc-prediction-market-arb', 'macro-lottery-tail-risk'].includes(id);
+
   // VIEW 2: Clean Lightweight Multi-Article Index Grid
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 space-y-10">
+    <div className="py-8 dark-blog-theme rounded-2xl px-2 sm:px-6 my-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 space-y-10">
       
       {/* Page Header */}
       <div className="space-y-4 border-b border-[var(--border-color)] pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -77,9 +92,9 @@ export default function BlogView({ setActiveTab }) {
 
             {/* Title */}
             <h2
-              onClick={() => post.id === 'btc-prediction-market-arb' && setSelectedPostId(post.id)}
+              onClick={() => isPostSelectable(post.id) && setSelectedPostId(post.id)}
               className={`text-xl font-mono font-bold text-[var(--text-primary)] transition-colors flex items-start justify-between gap-2 ${
-                post.id === 'btc-prediction-market-arb'
+                isPostSelectable(post.id)
                   ? 'group-hover:text-[var(--accent-cyan)] cursor-pointer'
                   : 'opacity-80'
               }`}
@@ -103,7 +118,7 @@ export default function BlogView({ setActiveTab }) {
                 ))}
               </div>
 
-              {post.id === 'btc-prediction-market-arb' ? (
+              {isPostSelectable(post.id) ? (
                 <button
                   onClick={() => setSelectedPostId(post.id)}
                   className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[var(--accent-cyan)] hover:underline"
@@ -121,6 +136,7 @@ export default function BlogView({ setActiveTab }) {
         ))}
       </div>
 
+      </div>
     </div>
   );
 }
