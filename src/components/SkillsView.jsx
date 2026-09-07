@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Search, Code, Cpu, Database, Server, Wrench, Sparkles, Terminal, Globe, Network } from 'lucide-react';
+import { Search, Code, Cpu, Database, Server, Wrench, Sparkles, Terminal, Globe, Network, Award, ShieldCheck, Eye } from 'lucide-react';
 import { 
   GoLogo, TypeScriptLogo, PythonLogo, RustLogo, JavaLogo, CSharpLogo, PostgresLogo, 
-  SpringBootLogo, KafkaLogo, RedisLogo, DockerLogo, PyTorchLogo, AWSLogo, RestApiLogo 
+  SpringBootLogo, KafkaLogo, RedisLogo, DockerLogo, PyTorchLogo, AWSLogo, RestApiLogo,
+  GoogleCloudLogo
 } from './TechLogos';
 
-export default function SkillsView() {
+export default function SkillsView({ onOpenCertificate }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const skillGroups = [
@@ -40,6 +41,7 @@ export default function SkillsView() {
       category: 'AI & Data Science',
       icon: <Cpu className="w-4 h-4 text-purple-400" />,
       skills: [
+        { name: 'Google Cloud Generative AI Leader', level: 'Certified', desc: 'Official Google Cloud certification: enterprise LLM adoption, Vertex AI, Gemini models, production RAG pipelines, and AI governance.', logo: <GoogleCloudLogo />, isCert: true },
         { name: 'LLM Agents & FastMCP', level: 'Advanced', desc: 'Autonomous agent loops, model context protocol tools, self-correction harnesses.' },
         { name: 'PyTorch & Scikit-Learn', level: 'Intermediate', desc: 'Deep learning models, classification pipelines, feature engineering (MIDS @ Berkeley).', logo: <PyTorchLogo /> },
         { name: 'Vector DBs (Chroma, Pinecone)', level: 'Advanced', desc: 'RAG semantic search, cosine similarity indexing, prompt context injection.' },
@@ -109,6 +111,38 @@ export default function SkillsView() {
         </div>
       </div>
 
+      {/* Featured Credential Banner */}
+      {!searchTerm && (
+        <div className="p-4 rounded-lg border border-blue-500/30 bg-blue-500/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400 shrink-0">
+              <GoogleCloudLogo className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-bold text-[var(--text-primary)]">
+                  Google Cloud Certified — Generative AI Leader
+                </span>
+                <span className="px-1.5 py-0.2 text-[9px] font-mono rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-0.5">
+                  <ShieldCheck className="w-2.5 h-2.5" />
+                  Verified
+                </span>
+              </div>
+              <p className="text-[11px] text-[var(--text-secondary)] font-sans">
+                Active credential through Sep 2029 • Verification ID: a6922600124a4f0797c27e832d518ee0
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => onOpenCertificate && onOpenCertificate()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded border border-blue-500/40 text-blue-400 hover:bg-blue-500/10 transition-colors shrink-0 self-start sm:self-auto"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            View Certificate
+          </button>
+        </div>
+      )}
+
       {/* Skills Groups */}
       <div className="space-y-10">
         {skillGroups.map((group) => {
@@ -135,7 +169,12 @@ export default function SkillsView() {
                 {matchingSkills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="p-4 rounded-lg border border-[var(--border-color)] bg-[var(--bg-surface)] hover:border-[var(--accent-cyan)]/40 transition-all space-y-2 group"
+                    onClick={() => skill.isCert && onOpenCertificate && onOpenCertificate()}
+                    className={`p-4 rounded-lg border transition-all space-y-2 group ${
+                      skill.isCert
+                        ? 'border-blue-500/30 bg-blue-500/5 hover:border-blue-400 cursor-pointer shadow-sm'
+                        : 'border-[var(--border-color)] bg-[var(--bg-surface)] hover:border-[var(--accent-cyan)]/40'
+                    }`}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
@@ -148,13 +187,23 @@ export default function SkillsView() {
                           {highlightMatches(skill.name, searchTerm)}
                         </h3>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--bg-page)] text-[var(--accent-cyan)] border border-[var(--border-color)] shrink-0">
+                      <span className={`text-[10px] font-mono px-2 py-0.5 rounded border shrink-0 ${
+                        skill.isCert
+                          ? 'bg-blue-500/10 text-blue-400 border-blue-500/30 font-semibold'
+                          : 'bg-[var(--bg-page)] text-[var(--accent-cyan)] border-[var(--border-color)]'
+                      }`}>
                         {skill.level}
                       </span>
                     </div>
                     <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                       {highlightMatches(skill.desc, searchTerm)}
                     </p>
+                    {skill.isCert && (
+                      <div className="pt-1 flex items-center gap-1 text-[11px] font-mono text-blue-400 group-hover:underline">
+                        <Eye className="w-3 h-3" />
+                        <span>Click to view official certificate →</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

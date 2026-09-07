@@ -1,12 +1,28 @@
 import React from 'react';
-import { ArrowUpRight, Zap, Bot, TrendingUp, ShieldCheck, Mail, User, Layers } from 'lucide-react';
+import { ArrowUpRight, Zap, Bot, TrendingUp, ShieldCheck, Mail, User, Layers, Award } from 'lucide-react';
+import { GoogleCloudLogo } from './TechLogos';
 
-export default function HomeView({ setActiveTab, onOpenProjectModal }) {
+export default function HomeView({ setActiveTab, onOpenProjectModal, onOpenCertificate }) {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-20 space-y-16">
       
       {/* Hero Intro Header (caweidmann style) */}
       <section className="space-y-6">
+
+        {/* Certified Badge Pill */}
+        <div className="flex items-center">
+          <button
+            onClick={() => onOpenCertificate && onOpenCertificate()}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 text-xs font-mono transition-all group shadow-sm"
+          >
+            <GoogleCloudLogo className="w-4 h-4 shrink-0" />
+            <span className="font-semibold text-[var(--text-primary)]">Google Cloud Certified</span>
+            <span className="hidden sm:inline text-blue-300">•</span>
+            <span className="hidden sm:inline text-blue-300">Generative AI Leader</span>
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span className="text-[10px] text-blue-400 group-hover:translate-x-0.5 transition-transform">→</span>
+          </button>
+        </div>
 
         {/* Title */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-mono tracking-tight text-[var(--text-primary)]">
@@ -137,20 +153,35 @@ export default function HomeView({ setActiveTab, onOpenProjectModal }) {
       {/* Snapshot Career Summary */}
       <section className="p-6 rounded-lg border border-[var(--border-color)] bg-[var(--bg-surface)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <span className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider">Current Role & Education</span>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider">Current Role, Education & Accreditation</span>
+          </div>
           <h4 className="text-base font-mono font-semibold text-[var(--text-primary)]">
-            Software Development Engineer II @ UPS • MIDS Candidate @ UC Berkeley
+            Software Development Engineer II @ UPS • MIDS @ UC Berkeley
           </h4>
-          <p className="text-xs text-[var(--text-secondary)]">
-            B.S. Computer Science from Rutgers University (Summa Cum Laude, GPA 3.96/4.0)
+          <p className="text-xs text-[var(--text-secondary)] flex flex-wrap items-center gap-2">
+            <span>B.S. CS @ Rutgers (Summa Cum Laude, 3.96)</span>
+            <span className="text-[var(--text-muted)]">•</span>
+            <span className="inline-flex items-center gap-1 text-blue-400 font-mono font-medium">
+              <GoogleCloudLogo className="w-3.5 h-3.5" />
+              Google Cloud GenAI Leader Certified
+            </span>
           </p>
         </div>
-        <button
-          onClick={() => setActiveTab('resume')}
-          className="shrink-0 px-4 py-2 text-xs font-mono font-medium rounded-md border border-[var(--border-color)] text-[var(--accent-cyan)] hover:bg-[var(--accent-cyan)]/10 transition-colors"
-        >
-          View Resume →
-        </button>
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            onClick={() => onOpenCertificate && onOpenCertificate()}
+            className="px-3 py-2 text-xs font-mono font-medium rounded-md border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 transition-colors"
+          >
+            View Credential
+          </button>
+          <button
+            onClick={() => setActiveTab('resume')}
+            className="px-3 py-2 text-xs font-mono font-medium rounded-md border border-[var(--border-color)] text-[var(--accent-cyan)] hover:bg-[var(--accent-cyan)]/10 transition-colors"
+          >
+            View Resume →
+          </button>
+        </div>
       </section>
 
     </div>

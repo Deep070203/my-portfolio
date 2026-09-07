@@ -6,7 +6,7 @@ export default function InteractiveTerminal({ isOpen, onClose }) {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState([
     { type: 'output', text: 'Welcome to Deep Shah CLI v2.4.0 [Type "help" for commands]' },
-    { type: 'output', text: 'SDE II @ UPS | MIDS Candidate @ UC Berkeley | Summa Cum Laude @ Rutgers' }
+    { type: 'output', text: 'SDE II @ UPS | MIDS @ UC Berkeley | Google Cloud GenAI Leader Certified' }
   ]);
   const [copied, setCopied] = useState(false);
   const inputRef = useRef(null);
@@ -30,21 +30,30 @@ export default function InteractiveTerminal({ isOpen, onClose }) {
       case 'help':
         newHistory.push({
           type: 'output',
-          text: `Available commands:\n  help        - Show available commands\n  about       - Detailed biography & focus areas\n  skills      - Technical skills matrix\n  projects    - Overview of featured projects\n  magneto     - Deep dive into Magneto.ai (Go Options Engine)\n  autoharness - Deep dive into AutoHarness (13-Stage Agent)\n  experience  - Career timeline & metrics\n  contact     - Reach out / social links\n  sudo hire   - Unlock instant recruiter pass\n  clear       - Clear screen`
+          text: `Available commands:\n  help          - Show available commands\n  about         - Detailed biography & focus areas\n  certs         - View official Google Cloud certifications\n  skills        - Technical skills matrix\n  projects      - Overview of featured projects\n  magneto       - Deep dive into Magneto.ai (Go Options Engine)\n  autoharness   - Deep dive into AutoHarness (13-Stage Agent)\n  experience    - Career timeline & metrics\n  contact       - Reach out / social links\n  sudo hire     - Unlock instant recruiter pass\n  clear         - Clear screen`
         });
         break;
 
       case 'about':
         newHistory.push({
           type: 'output',
-          text: `DEEP SHAH — Parsippany, NJ\nSoftware Development Engineer II @ UPS & UC Berkeley MIDS Student\nSumma Cum Laude Graduate from Rutgers University (B.S. CS & Math, 3.86 GPA)\nSpecializing in Autonomous LLM Agents, Quantitative Financial Modeling, and High-Throughput Microservices.`
+          text: `DEEP SHAH — Parsippany, NJ\nSoftware Development Engineer II @ UPS & UC Berkeley MIDS Student\nSumma Cum Laude Graduate from Rutgers University (B.S. CS & Math, 3.96 GPA)\nGoogle Cloud Certified Generative AI Leader (Issued Sep 2026)\nSpecializing in Autonomous LLM Agents, Quantitative Financial Modeling, and High-Throughput Microservices.`
+        });
+        break;
+
+      case 'certs':
+      case 'certifications':
+      case 'cert':
+        newHistory.push({
+          type: 'output',
+          text: `[OFFICIAL CERTIFICATION]\nGoogle Cloud Certified — Generative AI Leader\n• Recipient:       Deep Shah\n• Issuer:          Google Cloud (Thomas Kurian, CEO)\n• Series ID:       78167\n• Verification ID: a6922600124a4f0797c27e832d518ee0\n• Issue Date:      September 07, 2026\n• Expiration Date: September 07, 2029\n• Scope:           Enterprise GenAI Strategy, Vertex AI, Gemini Models, RAG Architecture & AI Governance\n• Download PDF:    /certs/google-cloud-generative-ai-leader.pdf`
         });
         break;
 
       case 'skills':
         newHistory.push({
           type: 'output',
-          text: `Languages:       Go, Python, TypeScript, Java, Rust, C#, SQL, C++\nAI & Agents:     Vercel AI SDK, Prompt Engineering, LLM Fine-Tuning, Octokit, RAG\nQuant & Data:    Black-Scholes Models, GEX/VEX Analytics, Kafka, Databricks, Spark, Postgres\nBackend & Cloud: Spring Boot, Azure DevOps, AWS, Docker, Microservices (60+ services)`
+          text: `Languages:       Go, Python, TypeScript, Java, Rust, C#, SQL, C++\nCertifications:  Google Cloud Certified Generative AI Leader (Sep 2026)\nAI & Agents:     Vertex AI, Gemini, FastMCP, Prompt Engineering, LLM RAG, PyTorch\nQuant & Data:    Black-Scholes Models, GEX/VEX Analytics, Kafka, Databricks, Spark, Postgres\nBackend & Cloud: Spring Boot, Azure DevOps, AWS, Docker, Kubernetes (5M+ daily events)`
         });
         break;
 

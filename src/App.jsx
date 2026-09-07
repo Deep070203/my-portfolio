@@ -10,12 +10,14 @@ import ContactView from './components/ContactView';
 import BlogView from './components/BlogView';
 import ProjectDetailModal from './components/ProjectDetailModal';
 import InteractiveTerminal from './components/InteractiveTerminal';
+import CertificateModal from './components/CertificateModal';
 import Footer from './components/Footer';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isCertModalOpen, setIsCertModalOpen] = useState(false);
 
   // Global keybinding: Cmd+K / Ctrl+K to toggle CLI
   useEffect(() => {
@@ -46,11 +48,15 @@ export default function App() {
             <HomeView
               setActiveTab={setActiveTab}
               onOpenProjectModal={(id) => setSelectedProjectId(id)}
+              onOpenCertificate={() => setIsCertModalOpen(true)}
             />
           )}
 
           {activeTab === 'about' && (
-            <AboutView setActiveTab={setActiveTab} />
+            <AboutView 
+              setActiveTab={setActiveTab} 
+              onOpenCertificate={() => setIsCertModalOpen(true)}
+            />
           )}
 
           {activeTab === 'projects' && (
@@ -60,11 +66,15 @@ export default function App() {
           )}
 
           {activeTab === 'resume' && (
-            <ResumeView />
+            <ResumeView 
+              onOpenCertificate={() => setIsCertModalOpen(true)}
+            />
           )}
 
           {activeTab === 'skills' && (
-            <SkillsView />
+            <SkillsView 
+              onOpenCertificate={() => setIsCertModalOpen(true)}
+            />
           )}
 
           {activeTab === 'contact' && (
@@ -91,6 +101,12 @@ export default function App() {
         <InteractiveTerminal
           isOpen={isTerminalOpen}
           onClose={() => setIsTerminalOpen(false)}
+        />
+
+        {/* Official Certificate Lightbox Modal */}
+        <CertificateModal
+          isOpen={isCertModalOpen}
+          onClose={() => setIsCertModalOpen(false)}
         />
 
       </div>

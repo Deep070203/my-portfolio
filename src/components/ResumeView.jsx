@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Download, ChevronDown, ChevronUp, Briefcase, GraduationCap, Award, Calendar, MapPin, Building2 } from 'lucide-react';
+import { Download, ChevronDown, ChevronUp, Briefcase, GraduationCap, Award, Calendar, MapPin, Building2, ShieldCheck, Eye, Copy, Check } from 'lucide-react';
+import { GoogleCloudLogo } from './TechLogos';
 
-export default function ResumeView() {
+export default function ResumeView({ onOpenCertificate }) {
   const [openSections, setOpenSections] = useState({
     ups2: true,
     ups1: true,
@@ -9,9 +10,16 @@ export default function ResumeView() {
     rutgers: true,
     awards: true,
   });
+  const [copiedId, setCopiedId] = useState(false);
 
   const toggleSection = (id) => {
     setOpenSections(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleCopyCertId = () => {
+    navigator.clipboard.writeText('a6922600124a4f0797c27e832d518ee0');
+    setCopiedId(true);
+    setTimeout(() => setCopiedId(false), 2000);
   };
 
   return (
@@ -211,6 +219,88 @@ export default function ResumeView() {
           <p className="text-xs text-[var(--text-secondary)]">
             Honors: Dean's Highest Honors (All Semesters). Coursework: Data Structures, Algorithms, Distributed Systems, Database Management, Operating Systems, Artificial Intelligence.
           </p>
+        </div>
+      </div>
+
+      {/* Certifications & Credentials Section */}
+      <div className="space-y-6">
+        <div className="flex items-center gap-2 border-b border-[var(--border-color)] pb-2">
+          <Award className="w-5 h-5 text-blue-400" />
+          <h2 className="font-mono font-bold text-lg text-[var(--text-primary)] uppercase tracking-wider">
+            Certifications & Credentials
+          </h2>
+        </div>
+
+        {/* Google Cloud Certified Generative AI Leader */}
+        <div className="border border-[var(--border-color)] rounded-lg bg-[var(--bg-surface)] p-5 space-y-4 hover:border-blue-500/40 transition-all">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 shrink-0 mt-0.5">
+                <GoogleCloudLogo className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-mono font-bold text-base text-[var(--text-primary)]">
+                    Google Cloud Certified — Generative AI Leader
+                  </h3>
+                  <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" />
+                    Verified
+                  </span>
+                </div>
+                <p className="text-xs font-mono text-blue-400 font-medium">
+                  Issuer: Google Cloud • Signatory: Thomas Kurian, CEO
+                </p>
+              </div>
+            </div>
+
+            <span className="text-xs font-mono text-[var(--text-muted)] shrink-0 self-start">
+              Sep 2026 – Sep 2029
+            </span>
+          </div>
+
+          <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+            Demonstrates proficiency in articulating business value, strategy, and technical viability of generative AI solutions on Google Cloud. Covers foundation model architectures (Gemini, PaLM), production RAG pipelines, Vertex AI platform capabilities, and enterprise responsible AI governance.
+          </p>
+
+          {/* Credential Metadata Strip */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[var(--border-color)] text-xs font-mono">
+            <div className="flex flex-wrap items-center gap-4 text-[var(--text-muted)]">
+              <span>Series ID: <strong className="text-[var(--text-primary)]">78167</strong></span>
+              <span className="flex items-center gap-1.5">
+                ID: <code className="text-[11px] text-[var(--text-primary)] font-semibold">a6922600124a4f0797c27e832d518ee0</code>
+                <button
+                  onClick={handleCopyCertId}
+                  className="p-1 rounded hover:bg-[var(--border-color)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+                  title="Copy verification ID"
+                >
+                  {copiedId ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => onOpenCertificate && onOpenCertificate()}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded border border-[var(--border-color)] text-[var(--text-primary)] hover:border-blue-400 hover:text-blue-400 hover:bg-blue-500/5 transition-all"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                View Certificate
+              </button>
+              <a
+                href="/certs/google-cloud-generative-ai-leader.pdf"
+                download="Google_Cloud_Certified_Generative_AI_Leader_Deep_Shah.pdf"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-medium rounded bg-[var(--text-primary)] text-[var(--bg-page)] hover:bg-[var(--accent-cyan)] transition-colors"
+              >
+                <Download className="w-3.5 h-3.5" />
+                PDF
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
